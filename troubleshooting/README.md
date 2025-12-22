@@ -4,7 +4,7 @@
 
 ## Содержание
 
-### 🔐 Network Policies
+### Network Policies
 
 - [Calico Network Policies](calico-network-policies.md) - настройка сетевых политик для контроля трафика между namespace
 

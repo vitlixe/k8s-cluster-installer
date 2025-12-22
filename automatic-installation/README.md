@@ -58,22 +58,3 @@ sudo ./install-worker.sh
 kubectl get nodes
 kubectl get pods --all-namespaces
 ```
-
-## Возможные проблемы
-
-### Нода не Ready
-```bash
-kubectl get pods -n kube-system | grep calico
-kubectl logs -n kube-system <calico-pod>
-```
-
-### Token expired
-```bash
-sudo kubeadm token create --print-join-command
-```
-
-### containerd не запускается
-```bash
-sudo systemctl restart containerd
-sudo journalctl -u containerd -n 50
-```
