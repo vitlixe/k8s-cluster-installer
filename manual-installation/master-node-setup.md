@@ -229,7 +229,7 @@ sudo kubeadm token create --print-join-command
 
 Пример вывода:
 ```bash
-kubeadm join 192.168.145.141:6443 --token TOKEN --discovery-token-ca-cert-hash sha256:HASH
+kubeadm join 192.168.1.100:6443 --token TOKEN --discovery-token-ca-cert-hash sha256:HASH
 ```
 
 Используйте эту команду на worker нодах для их подключения к кластеру.

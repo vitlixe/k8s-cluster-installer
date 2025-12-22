@@ -108,7 +108,7 @@ sudo ./install-worker.sh
 **Пример ввода:**
 
 ```
-kubeadm join 192.168.145.141:6443 --token abc123.xyz789 --discovery-token-ca-cert-hash sha256:1234567890abcdef...
+kubeadm join 192.168.1.100:6443 --token abc123.xyz789 --discovery-token-ca-cert-hash sha256:1234567890abcdef...
 ```
 
 Вводите команду **без** `sudo`, так как скрипт уже запущен с правами суперпользователя.

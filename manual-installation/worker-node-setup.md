@@ -187,7 +187,7 @@ sudo kubeadm token create --print-join-command
 Команда выведет что-то вроде:
 
 ```bash
-kubeadm join 192.168.145.141:6443 --token TOKEN --discovery-token-ca-cert-hash sha256:HASH
+kubeadm join 192.168.1.100:6443 --token TOKEN --discovery-token-ca-cert-hash sha256:HASH
 ```
 
 ### 4.2. Выполнение команды join на worker ноде
@@ -201,7 +201,7 @@ sudo kubeadm join <MASTER_IP>:6443 --token <TOKEN> --discovery-token-ca-cert-has
 **Пример:**
 
 ```bash
-sudo kubeadm join 192.168.145.141:6443 --token exud5e.qi21oov9ce8vtkeb --discovery-token-ca-cert-hash sha256:8abc8fa9de7c515ebbab65ce224b5ea48b4bb26ec766332a72eee495365c5a52
+sudo kubeadm join 192.168.1.100:6443 --token abc123.xyz789example --discovery-token-ca-cert-hash sha256:1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef
 ```
 
 **Описание параметров:**
