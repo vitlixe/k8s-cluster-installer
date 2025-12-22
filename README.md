@@ -112,12 +112,6 @@ A: Да, но добавьте мониторинг, бэкапы и усиле�
 **Q: Другие ОС?**
 A: Debian-based (Ubuntu, Mint) должны работать. См. [TESTED_OS.md](TESTED_OS.md)
 
-## Ресурсы
-
-- [Kubernetes Docs](https://kubernetes.io/docs/)
-- [Calico Docs](https://docs.projectcalico.org/)
-- [kubectl Cheat Sheet](https://kubernetes.io/docs/reference/kubectl/cheatsheet/)
-
 ## Лицензия
 
 MIT License

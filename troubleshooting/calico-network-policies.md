@@ -359,9 +359,3 @@ kubectl label namespace <namespace-name> environment=production
 - Не влияет на трафик к/от хостовой сети
 - Не фильтрует трафик на уровне приложения (L7)
 - Требует поддержки CNI плагином (Calico, Cilium, и т.д.)
-
-## Дополнительные ресурсы
-
-- [Официальная документация Kubernetes NetworkPolicy](https://kubernetes.io/docs/concepts/services-networking/network-policies/)
-- [Документация Calico](https://docs.projectcalico.org/)
-- [Network Policy Editor (визуальный редактор)](https://editor.networkpolicy.io/)

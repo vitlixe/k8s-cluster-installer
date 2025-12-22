@@ -74,13 +74,7 @@
 На сервере, который будет master нодой:
 
 ```bash
-# Скачать скрипт (если нужно)
-wget https://raw.githubusercontent.com/YOUR_REPO/k8s-install/main/automatic-installation/install-master.sh
-
-# Дать права на выполнение
-chmod +x install-master.sh
-
-# Запустить установку
+cd automatic-installation
 sudo ./install-master.sh
 ```
 
@@ -93,13 +87,7 @@ sudo ./install-master.sh
 На каждом сервере, который будет worker нодой:
 
 ```bash
-# Скачать скрипт (если нужно)
-wget https://raw.githubusercontent.com/YOUR_REPO/k8s-install/main/automatic-installation/install-worker.sh
-
-# Дать права на выполнение
-chmod +x install-worker.sh
-
-# Запустить установку
+cd automatic-installation
 sudo ./install-worker.sh
 ```
 
