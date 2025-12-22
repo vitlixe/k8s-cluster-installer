@@ -100,18 +100,3 @@ sudo rm -rf /etc/kubernetes/ ~/.kube/ /var/lib/etcd
 sudo kubeadm reset -f
 sudo rm -rf /etc/kubernetes/ /etc/cni/net.d
 ```
-
-## FAQ
-
-**Q: Какой способ выбрать?**
-A: Автоматический для скорости, ручной для обучения.
-
-**Q: Production ready?**
-A: Да, но добавьте мониторинг, бэкапы и усиленную безопасность.
-
-**Q: Другие ОС?**
-A: Debian-based (Ubuntu, Mint) должны работать. См. [TESTED_OS.md](TESTED_OS.md)
-
-## Лицензия
-
-MIT License
