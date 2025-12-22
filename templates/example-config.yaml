@@ -1,0 +1,41 @@
+# Пример конфигурационного файла для генерации NetworkPolicy
+# Используется вместе с шаблоном network-policy.yaml.j2
+
+policy_name: allow-cross-namespace-access
+target_namespace: backend
+
+pod_selector_labels:
+  app: api-server
+  tier: backend
+
+policy_types:
+  - Ingress
+  - Egress
+
+ingress_rules:
+  # Правило 1: Разрешить доступ из того же namespace
+  - pod_selector:
+      app: api-server
+    ports:
+      - protocol: TCP
+        port: 8080
+      - protocol: TCP
+        port: 8443
+
+  # Правило 2: Разрешить доступ из namespace frontend
+  - namespace_selector:
+      kubernetes.io/metadata.name: frontend
+    ports:
+      - protocol: TCP
+        port: 8080
+
+  # Правило 3: Разрешить доступ из namespace monitoring
+  - namespace_selector:
+      kubernetes.io/metadata.name: monitoring
+    ports:
+      - protocol: TCP
+        port: 9090
+
+egress_rules:
+  # Разрешить весь исходящий трафик
+  - {}
