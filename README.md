@@ -1,96 +1,83 @@
 # Kubernetes Cluster Installer
 
-Автоматическая и ручная установка Kubernetes кластера с Calico CNI.
+**Полный набор инструментов для развертывания production-ready Kubernetes кластера.**
 
-## Возможности
+Автоматизированные скрипты и подробные инструкции для установки Kubernetes кластера с нуля на Debian-based системах.
 
-- ✅ Автоматическая установка через bash скрипты
-- ✅ Подробные инструкции для ручной установки
-- ✅ Настройка Calico Network Policies
-- ✅ Jinja2 шаблоны для генерации NetworkPolicy
+## Для кого?
 
-## Быстрый старт
-
-### Автоматическая установка
-
-**Master нода:**
-```bash
-cd automatic-installation
-sudo ./install-master.sh
-```
-
-**Worker нода:**
-```bash
-cd automatic-installation
-sudo ./install-worker.sh
-```
-
-Подробнее: [automatic-installation/README.md](automatic-installation/README.md)
-
-### Ручная установка
-
-- [Установка Master ноды](manual-installation/master-node-setup.md)
-- [Установка Worker ноды](manual-installation/worker-node-setup.md)
-- [Настройка Network Policies](manual-installation/calico-network-policies.md)
+- 🎓 **Изучающие Kubernetes** — подробные инструкции с объяснением каждого шага
+- 🚀 **DevOps инженеры** — автоматизированные скрипты для быстрого развертывания
+- 🏢 **On-premise окружения** — полный контроль над инфраструктурой
+- 🔧 **Эксперименты** — простое создание и удаление кластеров
 
 ## Системные требования
 
-| Компонент | Master | Worker |
-|-----------|--------|--------|
-| CPU | 2+ cores | 1+ core |
+| | Master | Worker |
+|---|---|---|
+| CPU | 2+ ядра | 1+ ядро |
 | RAM | 2+ GB | 1+ GB |
 | Диск | 20+ GB | 10+ GB |
-| ОС | Debian-based Linux | Debian-based Linux |
+| ОС | Debian-based | Debian-based |
 
-Протестированные ОС: [TESTED_OS.md](TESTED_OS.md)
+✅ Протестировано: Debian 12 | 📋 [Полный список](TESTED_OS.md)
+
+## Способы установки
+
+### 🤖 Способ 1: Автоматическая (рекомендуется)
+
+**Преимущества:** быстро (5 мин), проверка требований, логирование, обработка ошибок
+
+```bash
+# Master
+cd automatic-installation
+sudo ./install-master.sh
+
+# Worker
+cd automatic-installation
+sudo ./install-worker.sh
+# Введите команду join с master ноды
+```
+
+📚 [Подробнее →](automatic-installation/README.md)
+
+### 📖 Способ 2: Ручная
+
+**Преимущества:** понимание каждого шага, полная кастомизация, обучение
+
+- [Установка Master ноды →](manual-installation/master-node-setup.md)
+- [Установка Worker ноды →](manual-installation/worker-node-setup.md)
 
 ## Компоненты
 
-- **Kubernetes** v1.34.x
-- **containerd** (latest)
-- **Calico** v3.28.0
-- **kubeadm/kubectl/kubelet** (latest)
+| Компонент | Версия | Назначение |
+|---|---|---|
+| Kubernetes | v1.34.x | Оркестрация контейнеров |
+| Calico | v3.28.0 | Сетевой плагин (CNI) |
+| containerd | latest | Container runtime |
+| kubeadm | latest | Инициализация кластера |
 
-## Network Policies
-
-### Ручная настройка
-См. [manual-installation/calico-network-policies.md](manual-installation/calico-network-policies.md)
-
-### Генерация из шаблонов
-```bash
-cd templates
-pip3 install jinja2 pyyaml
-python3 generate-policy.py -c example-config.yaml -o policy.yaml
-kubectl apply -f policy.yaml
-```
-
-Подробнее: [templates/README.md](templates/README.md)
-
-## Структура репозитория
+## Структура
 
 ```
-├── README.md                      # Этот файл
-├── TESTED_OS.md                   # Протестированные ОС
-├── manual-installation/           # Ручная установка
-│   ├── master-node-setup.md
-│   ├── worker-node-setup.md
-│   └── calico-network-policies.md
-├── automatic-installation/        # Автоматическая установка
-│   ├── README.md
-│   ├── install-master.sh
-│   └── install-worker.sh
-└── templates/                     # Jinja2 шаблоны
-    ├── README.md
-    ├── network-policy.yaml.j2
-    ├── example-config.yaml
-    └── generate-policy.py
+k8s-cluster-installer/
+├── automatic-installation/    # 🤖 Автоматическая установка
+├── manual-installation/       # 📖 Ручная установка
+├── troubleshooting/           # 🔧 Фиксы и дополнения
+└── TESTED_OS.md              # Протестированные ОС
 ```
+
+## Troubleshooting & Extras
+
+После установки базового кластера:
+
+- 🔐 [Calico Network Policies →](troubleshooting/calico-network-policies.md) - контроль трафика между namespace
 
 ## Полезные команды
 
 ```bash
-# Проверка кластера
-kubectl get nodes
+# Проверка
+kubectl get nodes -o wide
 kubectl get pods --all-namespaces
 
 # Логи установки
@@ -104,25 +91,32 @@ journalctl -u containerd -f
 
 ## Удаление кластера
 
-**Master:**
 ```bash
+# Master
 sudo kubeadm reset -f
 sudo rm -rf /etc/kubernetes/ ~/.kube/ /var/lib/etcd
-```
 
-**Worker:**
-```bash
-kubectl drain <node> --ignore-daemonsets --delete-emptydir-data
-kubectl delete node <node>
+# Worker (сначала на master: kubectl drain/delete node)
 sudo kubeadm reset -f
 sudo rm -rf /etc/kubernetes/ /etc/cni/net.d
 ```
+
+## FAQ
+
+**Q: Какой способ выбрать?**
+A: Автоматический для скорости, ручной для обучения.
+
+**Q: Production ready?**
+A: Да, но добавьте мониторинг, бэкапы и усиленную безопасность.
+
+**Q: Другие ОС?**
+A: Debian-based (Ubuntu, Mint) должны работать. См. [TESTED_OS.md](TESTED_OS.md)
 
 ## Ресурсы
 
 - [Kubernetes Docs](https://kubernetes.io/docs/)
 - [Calico Docs](https://docs.projectcalico.org/)
-- [Network Policy Editor](https://editor.networkpolicy.io/)
+- [kubectl Cheat Sheet](https://kubernetes.io/docs/reference/kubectl/cheatsheet/)
 
 ## Лицензия
 
