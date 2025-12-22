@@ -69,13 +69,11 @@
 - CPU: 2+ ядра
 - RAM: 2+ GB
 - Диск: 20+ GB
-- ОС: Debian-based Linux
 
 ### Worker нода
 - CPU: 1+ ядро
 - RAM: 1+ GB
 - Диск: 10+ GB
-- ОС: Debian-based Linux
 
 ## Альтернатива
 
