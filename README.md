@@ -25,25 +25,56 @@
 
 ### Способ 1: Автоматическая (рекомендуется)
 
-**Преимущества:** быстро (5 мин), проверка требований, логирование, обработка ошибок
+**Преимущества:** быстро, проверка требований, логирование, обработка ошибок
+
+Bash скрипты для быстрой установки Kubernetes кластера.
+
+**Файлы:**
+- `install-master.sh` - автоматическая установка и настройка master ноды с проверками и логированием
+- `install-worker.sh` - автоматическая установка worker ноды и присоединение к кластеру
+
+**Установка:**
 
 ```bash
-# Master
+# Master нода
 cd automatic-installation
 sudo ./install-master.sh
-
-# Worker
-cd automatic-installation
-sudo ./install-worker.sh
-# Введите команду join с master ноды
 ```
 
-[Подробнее](automatic-installation/README.md)
+Сохраните команду `kubeadm join` из вывода!
+
+```bash
+# Worker нода
+cd automatic-installation
+sudo ./install-worker.sh
+```
+
+Введите команду `kubeadm join` с master ноды.
+
+**Проверка:**
+
+```bash
+kubectl get nodes
+kubectl get pods --all-namespaces
+```
 
 ### Способ 2: Ручная
 
 **Преимущества:** понимание каждого шага, полная кастомизация, обучение
 
+Подробные пошаговые инструкции для установки Kubernetes кластера вручную.
+
+**Файлы:**
+- `master-node-setup.md` - пошаговая инструкция по установке и настройке master ноды с объяснением каждой команды
+- `worker-node-setup.md` - пошаговая инструкция по установке worker ноды и присоединению её к кластеру
+
+**Порядок установки:**
+
+1. **Сначала Master нода** - управляет кластером
+2. **Затем Worker ноды** - исполняют рабочую нагрузку
+3. **Повторить для каждой Worker ноды** - можно добавлять сколько угодно
+
+**Инструкции:**
 - [Установка Master ноды](manual-installation/master-node-setup.md)
 - [Установка Worker ноды](manual-installation/worker-node-setup.md)
 
@@ -68,34 +99,16 @@ k8s-cluster-installer/
 
 ## Troubleshooting & Extras
 
-После установки базового кластера:
+Дополнительные материалы, фиксы и настройки для Kubernetes кластера.
 
-- [Calico Network Policies](troubleshooting/calico-network-policies.md) - контроль трафика между namespace
+### Network Policies
 
-## Полезные команды
+- [Calico Network Policies](troubleshooting/calico-network-policies.md) - настройка сетевых политик для контроля трафика между namespace
 
-```bash
-# Проверка
-kubectl get nodes -o wide
-kubectl get pods --all-namespaces
+### Планируется добавить
 
-# Логи установки
-tail -f /var/log/k8s-master-install.log
-tail -f /var/log/k8s-worker-install.log
-
-# Отладка
-journalctl -u kubelet -f
-journalctl -u containerd -f
-```
-
-## Удаление кластера
-
-```bash
-# Master
-sudo kubeadm reset -f
-sudo rm -rf /etc/kubernetes/ ~/.kube/ /var/lib/etcd
-
-# Worker (сначала на master: kubectl drain/delete node)
-sudo kubeadm reset -f
-sudo rm -rf /etc/kubernetes/ /etc/cni/net.d
-```
+- Мониторинг и логирование
+- Настройка Ingress
+- Persistent Volumes
+- Backup и восстановление
+- Обновление компонентов кластера
